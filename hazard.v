@@ -7,7 +7,7 @@ module hazard (
     input  wire [4 : 0]            RdM,
     input  wire [4 : 0]            RdW,
     input  wire                pc_srcE,
-    input  wire         result_src_b0E,
+    input  wire [1 : 0]    result_srcE,
     input  wire             reg_writeM,
     input  wire             reg_writeW,
     output reg  [1 : 0]     forward_AE,
@@ -40,7 +40,7 @@ module hazard (
         end
     end
 
-    assign load_stallD = result_src_b0E & ((Rs1D == RdE) | (Rs2D == RdE));
+    assign load_stallD = (result_srcE == 2'b01) & ((Rs1D == RdE) | (Rs2D == RdE));
     assign stallF = load_stallD;
     assign stallD = load_stallD;
 
